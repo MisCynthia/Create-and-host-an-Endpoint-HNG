@@ -32,9 +32,18 @@ function getCurrentDay() {
 }
 
 function getUtcTime() {
-    // Get the current UTC time in ISO format
+    // Get the current UTC time as an ISO string
     const currentDate = new Date();
-    return currentDate.toISOString();
+    const utcTimeString = currentDate.toISOString();
+
+    // Extract the date and time parts from the ISO string
+    const datePart = utcTimeString.split('T')[0];
+    const timePart = utcTimeString.split('T')[1].split('.')[0]; // Remove milliseconds
+
+    // Combine the date and time parts with 'Z' to match the required format
+    const formattedUtcTime = `${datePart}T${timePart}Z`;
+
+    return formattedUtcTime;
 }
 
 app.listen(port, () => {
